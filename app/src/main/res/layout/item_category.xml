@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginEnd="16dp"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <!-- Category Icon Container -->
+    <androidx.cardview.widget.CardView
+        android:id="@+id/cardCategoryIcon"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        app:cardBackgroundColor="#F1F5F9"
+        app:cardCornerRadius="16dp"
+        app:cardElevation="0dp">
+
+        <ImageView
+            android:id="@+id/imgCategoryIcon"
+            android:layout_width="28dp"
+            android:layout_height="28dp"
+            android:layout_gravity="center"
+            android:contentDescription="Category Icon"
+            android:src="@drawable/ic_category_hair"
+            app:tint="#4CAF50" />
+    </androidx.cardview.widget.CardView>
+
+    <!-- Category Label -->
+    <TextView
+        android:id="@+id/tvCategoryName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:text="Hair &amp; Beauty"
+        android:textColor="#0F172A"
+        android:textSize="12sp"
+        android:textStyle="bold" />
+
+</LinearLayout>

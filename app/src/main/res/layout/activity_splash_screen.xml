@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/white"
+    tools:context=".SplashScreen">
+    <!-- Layer 1: People holding hands -->
+    <ImageView
+        android:id="@+id/ivLogoPeople"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_logo"
+        android:src="@drawable/community"
+        android:visibility="invisible" />
+
+    <!-- Layer 2: Center plant -->
+    <ImageView
+        android:id="@+id/ivLogoPlant"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_logo"
+        android:src="@drawable/plant"
+        android:visibility="invisible" />
+
+    <!-- Layer 3: Khula text -->
+    <ImageView
+        android:id="@+id/ivLogoName"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_logo"
+        android:src="@drawable/app_name"
+        android:visibility="invisible" />
+
+    <!-- Layer 4: Tagline -->
+    <ImageView
+        android:id="@+id/ivLogoTagline"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_centerInParent="true"
+        android:contentDescription="@string/app_logo"
+        android:src="@drawable/slogan"
+        android:visibility="invisible" />
+
+
+</RelativeLayout>
