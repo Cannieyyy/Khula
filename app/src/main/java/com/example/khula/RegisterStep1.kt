@@ -24,18 +24,25 @@ class RegisterStep1 : AppCompatActivity() {
         val cardCustomer = findViewById<LinearLayout>(R.id.cardCustomer)
         val cardProvider = findViewById<LinearLayout>(R.id.cardProvider)
 
+        // If the user came BACK from Step 2, restore their previous selection
+        val previousRole = intent.getStringExtra("accountType")
+        if (previousRole == "Provider") {
+            selectedRole = "Provider"
+            cardProvider.setBackgroundResource(R.drawable.bg_role_card_selected)
+            cardCustomer.setBackgroundResource(R.drawable.bg_role_card_default)
+        }
 
         btnBack.setOnClickListener {
-            val intent = Intent(this, Login::class.java)
-            startActivity(intent)
+            startActivity(Intent(this, Login::class.java))
         }
 
+        // THE KEY CHANGE: pass accountType to Step 2
         btnNextStep.setOnClickListener {
             val intent = Intent(this, RegisterStep2::class.java)
+            intent.putExtra("accountType", selectedRole)
             startActivity(intent)
         }
 
-        // Toggle selection logic
         cardCustomer.setOnClickListener {
             selectedRole = "Customer"
             cardCustomer.setBackgroundResource(R.drawable.bg_role_card_selected)
