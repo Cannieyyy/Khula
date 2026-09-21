@@ -21,5 +21,12 @@
     <color name="khula_border">#CBD5E1</color>
 
 
+    <color name="khula_dark_green">#0B3D2E</color>
+    <color name="khula_stat_box">#1B5340</color>
+    <color name="khula_accent">#2E7D5C</color>
+
+    <color name="khula_pending">#F59E0B</color>
+
+
 </resources>
 

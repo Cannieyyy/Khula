@@ -12,7 +12,7 @@ import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
 import androidx.lifecycle.lifecycleScope
 import com.example.khula.Data.Models.AuthenticateModel
-
+import com.example.khula.Data.SessionManager
 import com.example.khula.Data.Models.AuthenticateModel.LoginRequest
 import com.example.khula.Data.remote.RetrofitClient
 import kotlinx.coroutines.launch
@@ -64,26 +64,27 @@ class Login : AppCompatActivity() {
                     )
 
                     if (response.isSuccessful) {
-                        // user is authenticated
                         val body = response.body()
+                        val token = body?.token
+                        val userId = body?.userId ?: 0
                         val accountType = body?.accountType ?: "Customer"
 
-                        Toast.makeText(
-                            this@Login,
-                            "Welcome! You are a $accountType",
-                            Toast.LENGTH_LONG
-                        ).show()
+                        // Save the token + user info to SharedPreferences
+                        val session = SessionManager(this@Login)
+                        if (token != null) {
+                            session.saveSession(token, userId, accountType)
+                        }
 
-                        // Redirect the ser  based on account type
+                        Toast.makeText(this@Login, "Welcome! You are a $accountType", Toast.LENGTH_LONG).show()
+
                         val intent = if (accountType == "Provider") {
-
-                            Intent(this@Login, CustomerHome::class.java)
+                            Intent(this@Login, ProviderDashboard::class.java)   // Replace with ProviderHome later
                         } else {
                             Intent(this@Login, CustomerHome::class.java)
                         }
                         startActivity(intent)
                         finish()
-                    } else {
+                    }else {
                         // displaying this is the user entered the wrong credentials
                         Toast.makeText(
                             this@Login,

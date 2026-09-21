@@ -10,6 +10,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.ViewCompat
 import androidx.core.view.WindowInsetsCompat
+import com.example.khula.Data.SessionManager
 
 class SplashScreen : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -17,7 +18,6 @@ class SplashScreen : AppCompatActivity() {
         enableEdgeToEdge()
         setContentView(R.layout.activity_splash_screen)
 
-        // Find views by ID
         val ivLogoPeople = findViewById<ImageView>(R.id.ivLogoPeople)
         val ivLogoPlant = findViewById<ImageView>(R.id.ivLogoPlant)
         val ivLogoName = findViewById<ImageView>(R.id.ivLogoName)
@@ -30,43 +30,38 @@ class SplashScreen : AppCompatActivity() {
             insets
         }
 
-        // Fade in People
-        handler.postDelayed({
-            fadeInView(ivLogoPeople)
-        }, 300)
+        handler.postDelayed({ fadeInView(ivLogoPeople) }, 300)
+        handler.postDelayed({ fadeInView(ivLogoPlant) }, 1000)
+        handler.postDelayed({ fadeInView(ivLogoName) }, 1700)
+        handler.postDelayed({ fadeInView(ivLogoTagline) }, 2400)
 
-        // Fade in Plant
+        // Check login state and route accordingly
         handler.postDelayed({
-            fadeInView(ivLogoPlant)
-        }, 1000)
+            val session = SessionManager(this)
 
-        // Fade in Khula text
-        handler.postDelayed({
-            fadeInView(ivLogoName)
-        }, 1700)
-
-        //Fade in Tagline
-        handler.postDelayed({
-            fadeInView(ivLogoTagline)
-        }, 2400)
-
-        //Navigate to LoginActivity
-        handler.postDelayed({
-            startActivity(Intent(this, Login::class.java))
-            finish() // Prevents returning to splash screen on Back press
+            if (session.isLoggedIn()) {
+                // Token exists → skip login
+                val accountType = session.getAccountType() ?: "Customer"
+                val intent = if (accountType == "Provider") {
+                    Intent(this, ProviderDashboard::class.java)
+                } else {
+                    Intent(this, CustomerHome::class.java)
+                }
+                startActivity(intent)
+            } else {
+                // No token → Login
+                startActivity(Intent(this, Login::class.java))
+            }
+            finish()
         }, 3800)
     }
-
-
-     //Helper function to smoothly fade in a View
 
     private fun fadeInView(view: View) {
         view.alpha = 0f
         view.visibility = View.VISIBLE
         view.animate()
             .alpha(1f)
-            .setDuration(600) // Fade-in duration in milliseconds
+            .setDuration(600)
             .start()
     }
-
 }
