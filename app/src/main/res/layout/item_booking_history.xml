@@ -1,0 +1,125 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_marginHorizontal="16dp"
+    android:layout_marginVertical="8dp"
+    app:cardBackgroundColor="#FFFFFF"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="16dp">
+
+        <!-- Provider Avatar -->
+        <com.google.android.material.imageview.ShapeableImageView
+            android:id="@+id/imgHistoryProvider"
+            android:layout_width="56dp"
+            android:layout_height="56dp"
+            android:scaleType="centerCrop"
+            android:src="@drawable/ic_profile"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Circular" />
+
+        <!-- Service Name & Provider -->
+        <TextView
+            android:id="@+id/tvHistoryServiceName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="8dp"
+            android:text="Residential Cleaning"
+            android:textColor="#0F172A"
+            android:textSize="16sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toStartOf="@id/layoutHistoryStatus"
+            app:layout_constraintStart_toEndOf="@id/imgHistoryProvider"
+            app:layout_constraintTop_toTopOf="@id/imgHistoryProvider" />
+
+        <TextView
+            android:id="@+id/tvHistoryProviderName"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="2dp"
+            android:text="Mlambo Tech Solutions"
+            android:textColor="#64748B"
+            android:textSize="13sp"
+            app:layout_constraintEnd_toStartOf="@id/layoutHistoryStatus"
+            app:layout_constraintStart_toEndOf="@id/imgHistoryProvider"
+            app:layout_constraintTop_toBottomOf="@id/tvHistoryServiceName" />
+
+        <!-- Status Tag (Top Right) -->
+        <LinearLayout
+            android:id="@+id/layoutHistoryStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/bg_status_completed"
+            android:orientation="horizontal"
+            android:paddingHorizontal="10dp"
+            android:paddingVertical="4dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/tvHistoryStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="COMPLETED"
+                android:textColor="#166534"
+                android:textSize="11sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+        <View
+            android:id="@+id/viewDivider"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="16dp"
+            android:background="#F1F5F9"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/imgHistoryProvider" />
+
+        <!-- Date & Price Row -->
+        <ImageView
+            android:id="@+id/icHistoryCalendar"
+            android:layout_width="16dp"
+            android:layout_height="16dp"
+            android:layout_marginTop="16dp"
+            android:src="@drawable/ic_booking"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/viewDivider"
+            app:tint="#64748B" />
+
+        <TextView
+            android:id="@+id/tvHistoryDate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:text="14 Oct 2023 • 09:00 AM"
+            android:textColor="#0F172A"
+            android:textSize="13sp"
+            app:layout_constraintBottom_toBottomOf="@id/icHistoryCalendar"
+            app:layout_constraintStart_toEndOf="@id/icHistoryCalendar"
+            app:layout_constraintTop_toTopOf="@id/icHistoryCalendar" />
+
+        <TextView
+            android:id="@+id/tvHistoryPrice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="R 350.00"
+            android:textColor="#0F172A"
+            android:textSize="15sp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="@id/tvHistoryDate"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@id/tvHistoryDate" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
