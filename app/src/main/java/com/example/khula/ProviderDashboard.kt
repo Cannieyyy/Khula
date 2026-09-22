@@ -28,6 +28,10 @@ class ProviderDashboard : AppCompatActivity() {
                     val body = response.body()
                     val fullName = "${body?.firstName ?: ""} ${body?.lastName ?: ""}".trim()
                     if (fullName.isNotEmpty()) tvProviderName.text = fullName
+
+                    findViewById<TextView>(R.id.tvProviderLocation).text =
+                        body?.suburb ?: body?.city ?: "Location not set"
+
                 } else {
                     val err = response.errorBody()?.string() ?: "err ${response.code()}"
                     Toast.makeText(this@ProviderDashboard, err, Toast.LENGTH_LONG).show()

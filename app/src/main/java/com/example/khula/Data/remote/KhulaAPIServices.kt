@@ -3,6 +3,7 @@ import com.example.khula.Data.Models.AuthenticateModel.RegisterRequest
 import com.example.khula.Data.Models.AuthenticateModel.LoginRequest
 import com.example.khula.Data.Models.AuthenticateModel.AuthResponse
 import com.example.khula.Data.Models.AuthenticateModel.UserProfile
+import com.example.khula.Data.Models.ServiceModels
 import com.example.khula.Data.Models.ServiceModels.ServiceResponse
 import com.example.khula.Data.Models.ServiceModels.CreateServiceResult
 import com.example.khula.Data.Models.ServiceModels.CreateServiceRequest
@@ -12,6 +13,8 @@ import retrofit2.http.POST
 import retrofit2.http.GET
 import retrofit2.http.DELETE
 import retrofit2.http.Path
+import retrofit2.http.Query
+
 //creating the API as an interface
 interface KhulaAPIServices {
 
@@ -35,4 +38,17 @@ interface KhulaAPIServices {
 
     @DELETE("api/Services/{id}")
     suspend fun deleteService(@Path("id") id: Int): Response<Unit>
+
+
+
+    @GET("api/Services/browse")
+    suspend fun browseServices(
+        @Query("category") category: String? = null,
+        @Query("province") province: String? = null,
+        @Query("city") city: String? = null,
+        @Query("suburb") suburb: String? = null,
+        @Query("minPrice") minPrice: Double? = null,
+        @Query("maxPrice") maxPrice: Double? = null,
+        @Query("search") search: String? = null
+    ): Response<List<ServiceModels.ServiceBrowseResponse>>
 }
