@@ -7,6 +7,7 @@ import com.example.khula.Data.Models.ServiceModels
 import com.example.khula.Data.Models.ServiceModels.ServiceResponse
 import com.example.khula.Data.Models.ServiceModels.CreateServiceResult
 import com.example.khula.Data.Models.ServiceModels.CreateServiceRequest
+import com.example.khula.Data.Models.BookingModels
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
@@ -51,4 +52,15 @@ interface KhulaAPIServices {
         @Query("maxPrice") maxPrice: Double? = null,
         @Query("search") search: String? = null
     ): Response<List<ServiceModels.ServiceBrowseResponse>>
+
+
+
+    @POST("api/Bookings")
+    suspend fun createBooking(@Body request: BookingModels.CreateBookingRequest): Response<BookingModels.CreateBookingResult>
+
+    @GET("api/Bookings/customer")
+    suspend fun getMyBookingsAsCustomer(): Response<List<BookingModels.BookingResponse>>
+
+    @GET("api/Bookings/provider")
+    suspend fun getMyBookingsAsProvider(): Response<List<BookingModels.BookingResponse>>
 }

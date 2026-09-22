@@ -38,8 +38,12 @@ class CustomerHome : AppCompatActivity() {
         rvRecommended.layoutManager = LinearLayoutManager(this)
 
         providerAdapter = ProviderServiceAdapter(emptyList()) { service ->
-            Toast.makeText(this, "Open service: ${service.title}", Toast.LENGTH_SHORT).show()
-
+            val intent = android.content.Intent(this, RequestServiceActivity::class.java)
+            intent.putExtra("serviceId", service.serviceId ?: -1)
+            intent.putExtra("providerName", service.providerName ?: "Provider")
+            intent.putExtra("serviceTitle", service.title ?: "Service")
+            intent.putExtra("providerRegion", service.providerSuburb ?: service.providerCity ?: "")
+            startActivity(intent)
         }
         rvRecommended.adapter = providerAdapter
 

@@ -84,6 +84,11 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".RequestServiceActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
     </application>
 
 </manifest>

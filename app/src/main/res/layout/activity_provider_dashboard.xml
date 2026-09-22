@@ -269,129 +269,13 @@
                     android:textStyle="bold" />
             </LinearLayout>
 
-            <!-- Request card 1 -->
+            <!-- Requests loaded from the API -->
             <LinearLayout
+                android:id="@+id/requestsContainer"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="14dp"
-                android:background="@drawable/bg_request_card"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:src="@drawable/ic_customer"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/bg_avatar_circle"
-                    android:clipToOutline="true" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Lucia Mkama"
-                        android:textColor="#0F172A"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Retwist. 24 August 2026"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="*Braamfontein"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_status_pending"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="6dp"
-                    android:text="pending"
-                    android:textColor="#D97706"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
-
-            <!-- Request card 2 -->
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:background="@drawable/bg_request_card"
-                android:gravity="center_vertical"
-                android:orientation="horizontal"
-                android:padding="12dp">
-
-                <ImageView
-                    android:layout_width="52dp"
-                    android:layout_height="52dp"
-                    android:src="@drawable/ic_customer"
-                    android:scaleType="centerCrop"
-                    android:background="@drawable/bg_avatar_circle"
-                    android:clipToOutline="true" />
-
-                <LinearLayout
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="12dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Victoria Kheswa"
-                        android:textColor="#0F172A"
-                        android:textSize="14sp"
-                        android:textStyle="bold" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="Starter locs. 29 August 2026"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="2dp"
-                        android:text="*Braamfontein"
-                        android:textColor="#64748B"
-                        android:textSize="12sp" />
-                </LinearLayout>
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:background="@drawable/bg_status_pending"
-                    android:paddingHorizontal="14dp"
-                    android:paddingVertical="6dp"
-                    android:text="pending"
-                    android:textColor="#D97706"
-                    android:textSize="11sp"
-                    android:textStyle="bold" />
-            </LinearLayout>
+                android:orientation="vertical" />
 
         </LinearLayout>
     </ScrollView>
