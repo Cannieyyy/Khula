@@ -121,7 +121,7 @@ The Khula system uses a client-server setup with a mobile frontend, a backend RE
   a booking request is officially accepted by the provider.
 
 # You Tube video Link
-https://www.youtube.com/watch?v=r03IpyqYDwI
+https://youtu.be/cCXpT8ZU8iU
 
 # Khula API GIT HUB REPO LINK
 https://github.com/thokozani2005/KhulaRESTAPI.git
