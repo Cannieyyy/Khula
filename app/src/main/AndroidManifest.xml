@@ -91,7 +91,6 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
-
         <activity
             android:name=".ProviderRequestDetails"
             android:exported="false"
@@ -99,6 +98,11 @@
             android:windowSoftInputMode="adjustResize" />
         <activity
             android:name=".RequestServiceActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+        <activity
+            android:name=".EditProfileActivity"
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustResize" />

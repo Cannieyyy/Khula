@@ -31,7 +31,6 @@
             android:orientation="horizontal"
             android:paddingHorizontal="16dp">
 
-
             <!-- Back Button -->
 
             <ImageButton
@@ -60,7 +59,6 @@
         <!-- =================================================
              ACCOUNT INFORMATION
              ================================================= -->
-
         <LinearLayout
             android:id="@+id/rowAccountInfo"
             android:layout_width="match_parent"
@@ -73,13 +71,11 @@
             android:orientation="horizontal"
             android:paddingHorizontal="20dp">
 
-
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 android:contentDescription="Account Information"
                 android:src="@android:drawable/ic_menu_myplaces" />
-
 
             <TextView
                 android:layout_width="0dp"
@@ -90,7 +86,6 @@
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
-
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -99,7 +94,6 @@
                 android:textSize="20sp" />
 
         </LinearLayout>
-
 
         <!-- =================================================
              CHANGE PASSWORD

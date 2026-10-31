@@ -7,6 +7,7 @@ import android.content.pm.PackageManager
 import android.location.Geocoder
 import android.os.Bundle
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.enableEdgeToEdge
@@ -18,6 +19,7 @@ import androidx.core.widget.doOnTextChanged
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.khula.Data.Models.ServiceModels.ServiceBrowseResponse
 import com.example.khula.Data.remote.RetrofitClient
 import com.google.android.gms.location.FusedLocationProviderClient
@@ -37,7 +39,6 @@ class CustomerHome : AppCompatActivity() {
     // =========================================================
 
     private lateinit var rvCategories: RecyclerView
-
     private lateinit var rvRecommended: RecyclerView
 
 
@@ -53,8 +54,7 @@ class CustomerHome : AppCompatActivity() {
     // =========================================================
 
     // Stores all services received from the backend.
-    private var allServices: List<ServiceBrowseResponse> =
-        emptyList()
+    private var allServices: List<ServiceBrowseResponse> = emptyList()
 
 
     // =========================================================
@@ -76,25 +76,26 @@ class CustomerHome : AppCompatActivity() {
     // =========================================================
 
     // Google location client.
-    private lateinit var fusedLocationClient:
-            FusedLocationProviderClient
+    private lateinit var fusedLocationClient: FusedLocationProviderClient
 
     // Registered location from the user's profile.
     //
     // This is used when GPS location cannot be retrieved.
-    private var profileLocation: String =
-        "Location not set"
+    private var profileLocation: String = "Location not set"
 
+
+    // Stores the GPS location to send to the API for region-based search
+    private var searchSuburb: String? = null
+    private var searchCity: String? = null
+    private var searchProvince: String? = null
 
     // =========================================================
     // CONSTANTS
     // =========================================================
 
     companion object {
-
         // Unique request code for location permission.
-        private const val LOCATION_PERMISSION_REQUEST_CODE =
-            1001
+        private const val LOCATION_PERMISSION_REQUEST_CODE = 1001
     }
 
 
@@ -103,7 +104,6 @@ class CustomerHome : AppCompatActivity() {
     // =========================================================
 
     override fun onCreate(savedInstanceState: Bundle?) {
-
         super.onCreate(savedInstanceState)
 
         // Enable edge-to-edge display.
@@ -117,25 +117,15 @@ class CustomerHome : AppCompatActivity() {
         // INITIALISE LOCATION
         // =====================================================
 
-        fusedLocationClient =
-            LocationServices.getFusedLocationProviderClient(
-                this
-            )
+        fusedLocationClient = LocationServices.getFusedLocationProviderClient(this)
 
 
         // =====================================================
         // FIND RECYCLER VIEWS
         // =====================================================
 
-        rvCategories =
-            findViewById(
-                R.id.rvCategories
-            )
-
-        rvRecommended =
-            findViewById(
-                R.id.rvRecommendedProviders
-            )
+        rvCategories = findViewById(R.id.rvCategories)
+        rvRecommended = findViewById(R.id.rvRecommendedProviders)
 
 
         // =====================================================
@@ -143,88 +133,43 @@ class CustomerHome : AppCompatActivity() {
         // =====================================================
 
         // Categories scroll horizontally.
-        rvCategories.layoutManager =
-            LinearLayoutManager(
-                this,
-                LinearLayoutManager.HORIZONTAL,
-                false
-            )
+        rvCategories.layoutManager = LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false)
 
         // Services scroll vertically.
-        rvRecommended.layoutManager =
-            LinearLayoutManager(
-                this
-            )
+        rvRecommended.layoutManager = LinearLayoutManager(this)
 
 
         // =====================================================
         // PROVIDER / SERVICE ADAPTER
         // =====================================================
 
-        providerAdapter =
-            ProviderServiceAdapter(
-                emptyList()
-            ) { service ->
+        providerAdapter = ProviderServiceAdapter(emptyList()) { service ->
 
-                // =================================================
-                // KEEP GROUP MEMBERS' REQUEST SERVICE FEATURE
-                // =================================================
+            // =================================================
+            // KEEP GROUP MEMBERS' REQUEST SERVICE FEATURE
+            // =================================================
 
-                // Open RequestServiceActivity.
-                val intent =
-                    Intent(
-                        this,
-                        RequestServiceActivity::class.java
-                    )
+            // Open RequestServiceActivity.
+            val intent = Intent(this, RequestServiceActivity::class.java)
 
+            // Send real service ID.
+            intent.putExtra("serviceId", service.serviceId ?: -1)
 
-                // Send real service ID.
-                intent.putExtra(
-                    "serviceId",
-                    service.serviceId ?: -1
-                )
+            // Send provider name.
+            intent.putExtra("providerName", service.providerName ?: "Provider")
 
+            // Send service title.
+            intent.putExtra("serviceTitle", service.title ?: "Service")
 
-                // Send provider name.
-                intent.putExtra(
-                    "providerName",
-                    service.providerName
-                        ?: "Provider"
-                )
+            // Send provider region.
+            intent.putExtra("providerRegion", service.providerSuburb ?: service.providerCity ?: "")
 
-
-                // Send service title.
-                intent.putExtra(
-                    "serviceTitle",
-                    service.title
-                        ?: "Service"
-                )
-
-
-                // Send provider region.
-                intent.putExtra(
-                    "providerRegion",
-                    service.providerSuburb
-                        ?: service.providerCity
-                        ?: ""
-                )
-
-
-                // Open RequestServiceActivity.
-                startActivity(intent)
-            }
-
+            // Open RequestServiceActivity.
+            startActivity(intent)
+        }
 
         // Connect adapter to RecyclerView.
-        rvRecommended.adapter =
-            providerAdapter
-
-
-        // =====================================================
-        // LOAD PROFILE
-        // =====================================================
-
-        loadUserProfile()
+        rvRecommended.adapter = providerAdapter
 
 
         // =====================================================
@@ -259,22 +204,16 @@ class CustomerHome : AppCompatActivity() {
         // SEE ALL RECOMMENDED
         // =====================================================
 
-        findViewById<TextView>(
-            R.id.btnSeeAllRecommended
-        ).setOnClickListener {
+        findViewById<TextView>(R.id.btnSeeAllRecommended).setOnClickListener {
 
             // Reset category.
-            selectedCategory =
-                "All"
+            selectedCategory = "All"
 
             // Reset search.
-            currentSearchQuery =
-                ""
+            currentSearchQuery = ""
 
             // Clear search field.
-            findViewById<EditText>(
-                R.id.etSearch
-            ).setText("")
+            findViewById<EditText>(R.id.etSearch).setText("")
 
             // Show all services.
             applyFilters()
@@ -285,13 +224,10 @@ class CustomerHome : AppCompatActivity() {
         // SEE ALL CATEGORIES
         // =====================================================
 
-        findViewById<TextView>(
-            R.id.btnSeeAllCategories
-        ).setOnClickListener {
+        findViewById<TextView>(R.id.btnSeeAllCategories).setOnClickListener {
 
             // Remove category filtering.
-            selectedCategory =
-                "All"
+            selectedCategory = "All"
 
             // Apply remaining search filter.
             applyFilters()
@@ -302,26 +238,24 @@ class CustomerHome : AppCompatActivity() {
         // SYSTEM BARS
         // =====================================================
 
-        ViewCompat.setOnApplyWindowInsetsListener(
-            findViewById(R.id.main)
-        ) { view, insets ->
+        ViewCompat.setOnApplyWindowInsetsListener(findViewById(R.id.main)) { view, insets ->
 
-            val systemBars =
-                insets.getInsets(
-                    WindowInsetsCompat.Type.systemBars()
-                )
+            val systemBars = insets.getInsets(WindowInsetsCompat.Type.systemBars())
 
-
-            view.setPadding(
-                systemBars.left,
-                systemBars.top,
-                systemBars.right,
-                systemBars.bottom
-            )
-
+            view.setPadding(systemBars.left, systemBars.top, systemBars.right, systemBars.bottom)
 
             insets
         }
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        // =====================================================
+        // LOAD PROFILE
+        // =====================================================
+        loadUserProfile()
     }
 
 
@@ -336,16 +270,13 @@ class CustomerHome : AppCompatActivity() {
             try {
 
                 // Request logged-in user's profile.
-                val response =
-                    RetrofitClient.api
-                        .getMyProfile()
+                val response = RetrofitClient.api.getMyProfile()
 
 
                 if (response.isSuccessful) {
 
                     // Get profile from response.
-                    val body =
-                        response.body()
+                    val body = response.body()
 
 
                     // =================================================
@@ -353,23 +284,27 @@ class CustomerHome : AppCompatActivity() {
                     // =================================================
 
                     // Build full name safely.
-                    val fullName =
-                        "${body?.firstName ?: ""} ${body?.lastName ?: ""}"
-                            .trim()
-
+                    val fullName = "${body?.firstName ?: ""} ${body?.lastName ?: ""}".trim()
 
                     // Display customer name.
-                    findViewById<TextView>(
-                        R.id.tvCustomerName
-                    ).text =
-                        if (fullName.isNotEmpty()) {
+                    findViewById<TextView>(R.id.tvCustomerName).text = if (fullName.isNotEmpty()) {
+                        fullName
+                    } else {
+                        "Customer"
+                    }
 
-                            fullName
 
-                        } else {
+                    // =================================================
+                    // AVATAR IMAGE (NEW!)
+                    // =================================================
 
-                            "Customer"
-                        }
+                    val ivCustomerAvatar = findViewById<ImageView>(R.id.ivAvatar)
+                    if (!body?.avatarUrl.isNullOrEmpty()) {
+                        Glide.with(this@CustomerHome)
+                            .load(body.avatarUrl)
+                            .placeholder(R.drawable.ic_customer)
+                            .into(ivCustomerAvatar)
+                    }
 
 
                     // =================================================
@@ -378,62 +313,38 @@ class CustomerHome : AppCompatActivity() {
 
                     // Build a registered location from
                     // suburb, city and province.
-                    profileLocation =
-                        listOfNotNull(
-                            body?.suburb,
-                            body?.city,
-                            body?.province
-                        )
-                            .filter {
-                                it.isNotBlank()
-                            }
-                            .distinct()
-                            .joinToString(", ")
+                    profileLocation = listOfNotNull(body?.suburb, body?.city, body?.province)
+                        .filter { it.isNotBlank() }
+                        .distinct()
+                        .joinToString(", ")
 
 
                     // If the profile contains no location.
                     if (profileLocation.isBlank()) {
-
-                        profileLocation =
-                            "Location not set"
+                        profileLocation = "Location not set"
                     }
 
 
                     // Temporarily show profile location.
                     //
                     // GPS will replace this if available.
-                    findViewById<TextView>(
-                        R.id.tvUserLocation
-                    ).text =
-                        profileLocation
+                    findViewById<TextView>(R.id.tvUserLocation).text = profileLocation
 
 
                 } else {
 
                     // Read backend error.
-                    val error =
-                        response.errorBody()
-                            ?.string()
-                            ?: "Error ${response.code()}"
-
+                    val error = response.errorBody()?.string() ?: "Error ${response.code()}"
 
                     // Display error.
-                    Toast.makeText(
-                        this@CustomerHome,
-                        error,
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@CustomerHome, error, Toast.LENGTH_LONG).show()
                 }
 
 
             } catch (e: Exception) {
 
                 // Display network error.
-                Toast.makeText(
-                    this@CustomerHome,
-                    "Network: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this@CustomerHome, "Network: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -446,26 +357,21 @@ class CustomerHome : AppCompatActivity() {
     private fun checkLocationPermission() {
 
         // Check precise location permission.
-        val fineLocationGranted =
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+        val fineLocationGranted = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
 
 
         // Check approximate location permission.
-        val coarseLocationGranted =
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+        val coarseLocationGranted = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
 
 
         // Check whether we already have permission.
-        if (
-            fineLocationGranted ||
-            coarseLocationGranted
-        ) {
+        if (fineLocationGranted || coarseLocationGranted) {
 
             // Permission already exists.
             getCurrentLocation()
@@ -495,25 +401,14 @@ class CustomerHome : AppCompatActivity() {
         grantResults: IntArray
     ) {
 
-        super.onRequestPermissionsResult(
-            requestCode,
-            permissions,
-            grantResults
-        )
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults)
 
 
         // Check whether this is our location request.
-        if (
-            requestCode ==
-            LOCATION_PERMISSION_REQUEST_CODE
-        ) {
+        if (requestCode == LOCATION_PERMISSION_REQUEST_CODE) {
 
-            // Check if either location permission
-            // was granted.
-            val permissionGranted =
-                grantResults.any {
-                    it == PackageManager.PERMISSION_GRANTED
-                }
+            // Check if either location permission was granted.
+            val permissionGranted = grantResults.any { it == PackageManager.PERMISSION_GRANTED }
 
 
             if (permissionGranted) {
@@ -537,40 +432,31 @@ class CustomerHome : AppCompatActivity() {
     private fun getCurrentLocation() {
 
         // Check precise permission again.
-        val fineLocationGranted =
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+        val fineLocationGranted = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_FINE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
 
 
         // Check approximate permission again.
-        val coarseLocationGranted =
-            ActivityCompat.checkSelfPermission(
-                this,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) == PackageManager.PERMISSION_GRANTED
+        val coarseLocationGranted = ActivityCompat.checkSelfPermission(
+            this,
+            Manifest.permission.ACCESS_COARSE_LOCATION
+        ) == PackageManager.PERMISSION_GRANTED
 
 
         // Stop if no permission exists.
-        if (
-            !fineLocationGranted &&
-            !coarseLocationGranted
-        ) {
-
+        if (!fineLocationGranted && !coarseLocationGranted) {
             showProfileLocation()
-
             return
         }
 
 
         // Create cancellation token.
-        val cancellationTokenSource =
-            CancellationTokenSource()
+        val cancellationTokenSource = CancellationTokenSource()
 
 
-        // Ask Google Play Services for
-        // the current device location.
+        // Ask Google Play Services for the current device location.
         fusedLocationClient
             .getCurrentLocation(
                 Priority.PRIORITY_BALANCED_POWER_ACCURACY,
@@ -581,12 +467,8 @@ class CustomerHome : AppCompatActivity() {
                 // Check whether location exists.
                 if (location != null) {
 
-                    // Convert coordinates into
-                    // readable location.
-                    getAddressFromLocation(
-                        location.latitude,
-                        location.longitude
-                    )
+                    // Convert coordinates into readable location.
+                    getAddressFromLocation(location.latitude, location.longitude)
 
                 } else {
 
@@ -606,106 +488,56 @@ class CustomerHome : AppCompatActivity() {
     // CONVERT GPS LOCATION TO ADDRESS
     // =========================================================
 
-    private fun getAddressFromLocation(
-        latitude: Double,
-        longitude: Double
-    ) {
-
+    private fun getAddressFromLocation(latitude: Double, longitude: Double) {
         try {
-
-            // Create Android Geocoder.
-            val geocoder =
-                Geocoder(
-                    this,
-                    Locale.getDefault()
-                )
-
-
-            // Convert coordinates to an address.
+            val geocoder = Geocoder(this, Locale.getDefault())
             @Suppress("DEPRECATION")
-            val addresses =
-                geocoder.getFromLocation(
-                    latitude,
-                    longitude,
-                    1
-                )
+            val addresses = geocoder.getFromLocation(latitude, longitude, 1)
+            val address = addresses?.firstOrNull()
 
-
-            // Get first address.
-            val address =
-                addresses?.firstOrNull()
-
-
-            // Check whether address exists.
             if (address != null) {
+                // saving the gps data
+                searchSuburb = address.subLocality
+                searchCity = address.locality
+                searchProvince = address.adminArea
+
+                // fetching the services with the gps data
+                loadServices()
 
                 // Get suburb/local area.
-                val area =
-                    address.subLocality
-                        ?: address.locality
-                        ?: address.subAdminArea
-
-
+                val area = address.subLocality ?: address.locality ?: address.subAdminArea
                 // Get city.
-                val city =
-                    address.locality
-                        ?: address.subAdminArea
-                        ?: address.adminArea
-
+                val city = address.locality ?: address.subAdminArea ?: address.adminArea
 
                 // Build readable location.
-                val readableLocation =
-                    listOfNotNull(
-                        area,
-                        city
-                    )
-                        .filter {
-                            it.isNotBlank()
-                        }
-                        .distinct()
-                        .joinToString(", ")
-
+                val readableLocation = listOfNotNull(area, city)
+                    .filter { it.isNotBlank() }
+                    .distinct()
+                    .joinToString(", ")
 
                 // Display GPS location when available.
                 if (readableLocation.isNotBlank()) {
-
-                    findViewById<TextView>(
-                        R.id.tvUserLocation
-                    ).text =
-                        readableLocation
-
+                    findViewById<TextView>(R.id.tvUserLocation).text = readableLocation
                 } else {
-
                     // Otherwise use profile location.
                     showProfileLocation()
                 }
-
-
             } else {
-
                 // Geocoder returned no address.
                 showProfileLocation()
             }
-
-
         } catch (_: Exception) {
-
             // Geocoder failed.
             showProfileLocation()
         }
     }
-
 
     // =========================================================
     // SHOW PROFILE LOCATION
     // =========================================================
 
     private fun showProfileLocation() {
-
-        findViewById<TextView>(
-            R.id.tvUserLocation
-        ).text =
-            profileLocation
+        findViewById<TextView>(R.id.tvUserLocation).text = profileLocation
     }
 
 
@@ -719,24 +551,23 @@ class CustomerHome : AppCompatActivity() {
 
             try {
 
-                // Request real services from API.
-                val response =
-                    RetrofitClient.api
-                        .browseServices()
+                //passing the location to the API
+                val response = RetrofitClient.api.browseServices(
+                    suburb = searchSuburb,
+                    city = searchCity,
+                    province = searchProvince
+                )
+
 
 
                 if (response.isSuccessful) {
 
                     // Save complete original list.
-                    allServices =
-                        response.body()
-                            ?: emptyList()
+                    allServices = response.body() ?: emptyList()
 
 
                     // Initially display all services.
-                    providerAdapter.updateData(
-                        allServices
-                    )
+                    providerAdapter.updateData(allServices)
 
 
                     // =================================================
@@ -744,59 +575,39 @@ class CustomerHome : AppCompatActivity() {
                     // =================================================
 
                     // Extract real categories from services.
-                    val realCategories =
-                        allServices
-                            .mapNotNull {
-                                it.category
-                            }
-                            .filter {
-                                it.isNotBlank()
-                            }
-                            .distinct()
-                            .sorted()
+                    val realCategories = allServices
+                        .mapNotNull { it.category }
+                        .filter { it.isNotBlank() }
+                        .distinct()
+                        .sorted()
 
 
                     // Add "All" as an Android filtering option.
-                    val categories =
-                        listOf("All") +
-                                realCategories
+                    val categories = listOf("All") + realCategories
 
 
                     // Create category adapter.
-                    rvCategories.adapter =
-                        CategoryAdapter(
-                            categories
-                        ) { selected ->
+                    rvCategories.adapter = CategoryAdapter(categories) { selected ->
 
-                            // Remember selected category.
-                            selectedCategory =
-                                selected
+                        // Remember selected category.
+                        selectedCategory = selected
 
-
-                            // Apply category + search.
-                            applyFilters()
-                        }
+                        // Apply category + search.
+                        applyFilters()
+                    }
 
 
                 } else {
 
                     // API error.
-                    Toast.makeText(
-                        this@CustomerHome,
-                        "Error ${response.code()}",
-                        Toast.LENGTH_LONG
-                    ).show()
+                    Toast.makeText(this@CustomerHome, "Error ${response.code()}", Toast.LENGTH_LONG).show()
                 }
 
 
             } catch (e: Exception) {
 
                 // Network error.
-                Toast.makeText(
-                    this@CustomerHome,
-                    "Network: ${e.message}",
-                    Toast.LENGTH_LONG
-                ).show()
+                Toast.makeText(this@CustomerHome, "Network: ${e.message}", Toast.LENGTH_LONG).show()
             }
         }
     }
@@ -809,21 +620,14 @@ class CustomerHome : AppCompatActivity() {
     private fun setupSearch() {
 
         // Find search field.
-        val searchField =
-            findViewById<EditText>(
-                R.id.etSearch
-            )
+        val searchField = findViewById<EditText>(R.id.etSearch)
 
 
         // Listen while customer types.
         searchField.doOnTextChanged { text, _, _, _ ->
 
             // Save search query.
-            currentSearchQuery =
-                text
-                    ?.toString()
-                    ?.trim()
-                    .orEmpty()
+            currentSearchQuery = text?.toString()?.trim().orEmpty()
 
 
             // Cancel previous unfinished search.
@@ -831,15 +635,14 @@ class CustomerHome : AppCompatActivity() {
 
 
             // Start a new search delay.
-            searchJob =
-                lifecycleScope.launch {
+            searchJob = lifecycleScope.launch {
 
-                    // Wait briefly before filtering.
-                    delay(400L)
+                // Wait briefly before filtering.
+                delay(400L)
 
-                    // Apply category + search together.
-                    applyFilters()
-                }
+                // Apply category + search together.
+                applyFilters()
+            }
         }
     }
 
@@ -851,32 +654,21 @@ class CustomerHome : AppCompatActivity() {
     private fun applyFilters() {
 
         // Always begin with the complete list.
-        var filteredServices =
-            allServices
+        var filteredServices = allServices
 
 
         // =====================================================
         // CATEGORY
         // =====================================================
 
-        // Only filter category if the customer
-        // has not selected "All".
-        if (
-            !selectedCategory.equals(
-                "All",
-                ignoreCase = true
-            )
-        ) {
+        // Only filter category if the customer has not selected "All".
+        if (!selectedCategory.equals("All", ignoreCase = true)) {
 
-            filteredServices =
-                filteredServices.filter { service ->
+            filteredServices = filteredServices.filter { service ->
 
-                    // Safe because category may be null.
-                    service.category?.equals(
-                        selectedCategory,
-                        ignoreCase = true
-                    ) == true
-                }
+                // Safe because category may be null.
+                service.category?.equals(selectedCategory, ignoreCase = true) == true
+            }
         }
 
 
@@ -887,87 +679,46 @@ class CustomerHome : AppCompatActivity() {
         // Only search when text exists.
         if (currentSearchQuery.isNotBlank()) {
 
-            val query =
-                currentSearchQuery
+            val query = currentSearchQuery
+
+            filteredServices = filteredServices.filter { service ->
+
+                // Search service title.
+                val titleMatches = service.title?.contains(query, ignoreCase = true) == true
+
+                // Search description.
+                val descriptionMatches = service.description?.contains(query, ignoreCase = true) == true
+
+                // Search category.
+                val categoryMatches = service.category?.contains(query, ignoreCase = true) == true
+
+                // Search provider name.
+                val providerMatches = service.providerName?.contains(query, ignoreCase = true) == true
+
+                // Search provider suburb.
+                val suburbMatches = service.providerSuburb?.contains(query, ignoreCase = true) == true
+
+                // Search provider city.
+                val cityMatches = service.providerCity?.contains(query, ignoreCase = true) == true
+
+                // Search provider province.
+                val provinceMatches = service.providerProvince?.contains(query, ignoreCase = true) == true
 
 
-            filteredServices =
-                filteredServices.filter { service ->
-
-
-                    // Search service title.
-                    val titleMatches =
-                        service.title?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Search description.
-                    val descriptionMatches =
-                        service.description?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Search category.
-                    val categoryMatches =
-                        service.category?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Search provider name.
-                    val providerMatches =
-                        service.providerName?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Search provider suburb.
-                    val suburbMatches =
-                        service.providerSuburb?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Search provider city.
-                    val cityMatches =
-                        service.providerCity?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Search provider province.
-                    val provinceMatches =
-                        service.providerProvince?.contains(
-                            query,
-                            ignoreCase = true
-                        ) == true
-
-
-                    // Keep the service if any
-                    // real field matches.
-                    titleMatches ||
-                            descriptionMatches ||
-                            categoryMatches ||
-                            providerMatches ||
-                            suburbMatches ||
-                            cityMatches ||
-                            provinceMatches
-                }
+                // Keep the service if any real field matches.
+                titleMatches ||
+                        descriptionMatches ||
+                        categoryMatches ||
+                        providerMatches ||
+                        suburbMatches ||
+                        cityMatches ||
+                        provinceMatches
+            }
         }
 
 
         // Update RecyclerView.
-        providerAdapter.updateData(
-            filteredServices
-        )
+        providerAdapter.updateData(filteredServices)
     }
 
 
@@ -978,15 +729,11 @@ class CustomerHome : AppCompatActivity() {
     private fun setupBottomNavigation() {
 
         // Find bottom navigation.
-        val bottomNavigation =
-            findViewById<BottomNavigationView>(
-                R.id.bottomNavigation
-            )
+        val bottomNavigation = findViewById<BottomNavigationView>(R.id.bottomNavigation)
 
 
         // Home is the current screen.
-        bottomNavigation.selectedItemId =
-            R.id.nav_home
+        bottomNavigation.selectedItemId = R.id.nav_home
 
 
         // Listen for navigation clicks.
@@ -996,61 +743,34 @@ class CustomerHome : AppCompatActivity() {
 
                 // HOME
                 R.id.nav_home -> {
-
                     true
                 }
 
 
                 // BOOKINGS
                 R.id.nav_bookings -> {
-
-                    startActivity(
-                        Intent(
-                            this,
-                            BookingHistory::class.java
-                        )
-                    )
-
+                    startActivity(Intent(this, BookingHistory::class.java))
                     true
                 }
 
 
                 // MESSAGES
                 R.id.nav_messages -> {
-
-                    Toast.makeText(
-                        this,
-                        "Messages — coming soon",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    Toast.makeText(this, "Messages — coming soon", Toast.LENGTH_SHORT).show()
                     true
                 }
 
 
                 // FAVOURITES
                 R.id.nav_favorites -> {
-
-                    Toast.makeText(
-                        this,
-                        "Favourites — coming soon",
-                        Toast.LENGTH_SHORT
-                    ).show()
-
+                    Toast.makeText(this, "Favourites — coming soon", Toast.LENGTH_SHORT).show()
                     true
                 }
 
 
                 // PROFILE
                 R.id.nav_profile -> {
-
-                    startActivity(
-                        Intent(
-                            this,
-                            Settings::class.java
-                        )
-                    )
-
+                    startActivity(Intent(this, Settings::class.java))
                     true
                 }
 

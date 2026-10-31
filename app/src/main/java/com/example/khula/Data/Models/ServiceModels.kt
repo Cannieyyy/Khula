@@ -38,6 +38,16 @@ object ServiceModels {
         val providerSuburb: String?,
         val providerCity: String?,
         val providerProvince: String?,
-        val regionPriority: Int?
+        val regionPriority: Int?,
+        val providerAvatarUrl: String?
+    )
+
+    data class UpdateProfileRequest(
+        val firstName: String,
+        val lastName: String,
+        val phoneNumber: String,
+        val province: String,
+        val city: String,
+        val suburb: String
     )
 }

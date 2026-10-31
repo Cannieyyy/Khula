@@ -6,6 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import com.example.khula.Data.Models.ServiceModels.ServiceBrowseResponse
 import com.google.android.material.imageview.ShapeableImageView
 
@@ -37,6 +38,18 @@ class ProviderServiceAdapter(
         holder.tvSpecialty.text = item.category ?: item.title ?: ""
         holder.tvLocation.text = item.providerSuburb ?: item.providerCity ?: ""
         holder.tvStartingPrice.text = "From R${item.price ?: 0.0}"
+
+
+        if (!item.providerAvatarUrl.isNullOrEmpty()) {
+            Glide.with(holder.itemView.context)
+                .load(item.providerAvatarUrl)
+                .placeholder(R.drawable.ic_customer) // Shows while loading
+                .error(R.drawable.ic_customer)       // Shows if URL is broken
+                .into(holder.imgProvider)
+        } else {
+            // If they don't have a picture, use the default icon
+            holder.imgProvider.setImageResource(R.drawable.ic_customer)
+        }
 
         // No ratings table yet — placeholder until that's built
         holder.tvRating.text = "New"

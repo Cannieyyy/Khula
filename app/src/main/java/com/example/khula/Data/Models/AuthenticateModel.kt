@@ -43,7 +43,8 @@ class AuthenticateModel {
         val accountType: String?,
         val province: String?,
         val city: String?,
-        val suburb: String?
+        val suburb: String?,
+        val avatarUrl: String?
     )
 
 }

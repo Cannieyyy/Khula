@@ -9,6 +9,10 @@ import com.example.khula.Data.Models.ServiceModels.CreateServiceResult
 import com.example.khula.Data.Models.ServiceModels.CreateServiceRequest
 import com.example.khula.Data.Models.BookingModels
 import retrofit2.Response
+import okhttp3.MultipartBody
+import retrofit2.http.Multipart
+import retrofit2.http.Part
+
 import retrofit2.http.Body
 import retrofit2.http.POST
 import retrofit2.http.GET
@@ -30,6 +34,14 @@ interface KhulaAPIServices {
     @GET("api/Users/me")
     suspend fun getMyProfile(): Response<UserProfile>
 
+    // Update Profile Text
+    @PUT("api/Users/me")
+    suspend fun updateProfile(@Body request: ServiceModels.UpdateProfileRequest): Response<Unit>
+
+    // Upload Profile Picture
+    @Multipart
+    @POST("api/Users/me/avatar")
+    suspend fun uploadAvatar(@Part file: MultipartBody.Part): Response<Unit>
 
     // SERVICES
     @POST("api/Services")
