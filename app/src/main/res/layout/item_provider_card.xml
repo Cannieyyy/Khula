@@ -50,7 +50,9 @@
             android:src="@drawable/ic_favourite"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/imgProvider"
-            app:tint="#94A3B8" />
+            app:tint="#94A3B8"
+            android:clickable="true"
+            android:focusable="true" />
 
         <!-- Specialty / Category -->
         <TextView

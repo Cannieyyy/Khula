@@ -65,6 +65,8 @@ interface KhulaAPIServices {
     @POST("api/Authentication/forgot-password")
     suspend fun forgotPassword(@Body request: ForgotPasswordRequest): Response<Unit>
 
+    @POST("api/Favorites/providers")
+    suspend fun getFavoriteProviders(@Body providerIds: List<Int>): Response<List<ServiceModels.FavoriteProviderResponse>>
 
     @GET("api/Services/browse")
     suspend fun browseServices(

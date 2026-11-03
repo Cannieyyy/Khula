@@ -60,10 +60,7 @@ class ProviderServiceAdapter(
             Glide.with(holder.itemView.context)
                 .load(item.providerAvatarUrl)
                 .placeholder(R.drawable.ic_customer)
-                .error(R.drawable.ic_customer)
                 .into(holder.imgProvider)
-        } else {
-            holder.imgProvider.setImageResource(R.drawable.ic_customer)
         }
 
         // Ratings Logic
@@ -71,28 +68,32 @@ class ProviderServiceAdapter(
         val reviewCount = item.totalReviews ?: 0
 
         if (reviewCount > 0) {
-            holder.tvRating.text = "⭐ ${String.format("%.1f", rating)} ($reviewCount)"
+            holder.tvRating.text = "${String.format("%.1f", rating)} ($reviewCount)"
         } else {
-            holder.tvRating.text = "⭐ New"
+            holder.tvRating.text = "New"
         }
 
         // Favourites Heart Logic
+
         val providerId = item.providerId ?: -1
         val isFav = favoriteProviderIds.contains(providerId)
-        val context = holder.itemView.context
 
         if (isFav) {
-            holder.btnFavorite.setColorFilter(ContextCompat.getColor(context, android.R.color.holo_red_dark))
+            holder.btnFavorite.setColorFilter(ContextCompat.getColor(holder.itemView.context, android.R.color.holo_red_dark))
         } else {
-            holder.btnFavorite.setColorFilter(ContextCompat.getColor(context, R.color.grey_500)) // Or however you define grey
+            holder.btnFavorite.setColorFilter(ContextCompat.getColor(holder.itemView.context, R.color.grey_500))
         }
 
         holder.btnFavorite.setOnClickListener {
-            if (providerId == -1) return@setOnClickListener
+            // Debug toast to prove the click is firing
+            android.widget.Toast.makeText(holder.itemView.context, "Heart clicked! ID: $providerId", android.widget.Toast.LENGTH_SHORT).show()
 
-            // We need a lifecycle scope to make the API call.
-            // We can grab it from the Activity context.
-            val lifecycleOwner = context as? LifecycleOwner
+            if (providerId == -1) {
+                android.widget.Toast.makeText(holder.itemView.context, "Provider ID is missing from API!", android.widget.Toast.LENGTH_LONG).show()
+                return@setOnClickListener
+            }
+
+            val lifecycleOwner = holder.itemView.context as? LifecycleOwner
             lifecycleOwner?.lifecycleScope?.launch {
                 try {
                     val response = RetrofitClient.api.toggleFavorite(providerId)
@@ -103,9 +104,11 @@ class ProviderServiceAdapter(
                             favoriteProviderIds.add(providerId)
                         }
                         notifyItemChanged(position)
+                    } else {
+                        android.widget.Toast.makeText(holder.itemView.context, "API Error: ${response.code()}", android.widget.Toast.LENGTH_SHORT).show()
                     }
                 } catch (e: Exception) {
-                    // Handle network error
+                    android.widget.Toast.makeText(holder.itemView.context, "Network Error", android.widget.Toast.LENGTH_SHORT).show()
                 }
             }
         }

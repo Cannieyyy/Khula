@@ -52,4 +52,13 @@ object ServiceModels {
         val city: String,
         val suburb: String
     )
+
+    data class FavoriteProviderResponse(
+        val providerId: Int?,
+        val providerName: String?,
+        val providerSuburb: String?,
+        val providerCity: String?,
+        val providerAvatarUrl: String?,
+        val accountType: String?
+    )
 }

@@ -770,7 +770,7 @@ class CustomerHome : AppCompatActivity() {
 
                 // FAVOURITES
                 R.id.nav_favorites -> {
-                    Toast.makeText(this, "Favourites — coming soon", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, FavouritesActivity::class.java))
                     true
                 }
 
