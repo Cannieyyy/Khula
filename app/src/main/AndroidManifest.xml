@@ -38,9 +38,21 @@
             android:theme="@style/Theme.AppCompat.NoActionBar" />
         <activity
             android:name=".Login"
-            android:exported="false"
+            android:exported="true"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="adjustResize" />
+            android:windowSoftInputMode="adjustResize">
+
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+                <!-- Use a custom scheme -->
+                <data android:scheme="khula" android:host="reset" />
+            </intent-filter>
+
+        </activity>
+
         <activity
             android:name=".RegisterStep1"
             android:exported="false"
@@ -101,6 +113,14 @@
             android:exported="false"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="adjustResize" />
+
+
+        <activity
+            android:name=".ResetPasswordActivity"
+            android:exported="false"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:windowSoftInputMode="adjustResize" />
+
         <activity
             android:name=".EditProfileActivity"
             android:exported="false"

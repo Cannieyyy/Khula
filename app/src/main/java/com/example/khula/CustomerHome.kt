@@ -570,6 +570,13 @@ class CustomerHome : AppCompatActivity() {
                     providerAdapter.updateData(allServices)
 
 
+                    val favResponse = RetrofitClient.api.getMyFavorites()
+                    if (favResponse.isSuccessful) {
+                        val favIds = favResponse.body() ?: emptyList()
+                        providerAdapter.setFavorites(favIds)
+                    }
+
+
                     // =================================================
                     // REAL CATEGORIES
                     // =================================================

@@ -25,7 +25,8 @@ object BookingModels {
         val preferredTime: String?,
         val status: String?,
         val description: String?,
-        val createdAt: String?
+        val createdAt: String?,
+        val providerAvatarUrl: String?
     )
     data class ProviderOverviewResponse(
         val newRequests: Int,

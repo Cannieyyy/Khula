@@ -16,14 +16,15 @@
 
         <!-- Provider Avatar -->
         <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/imgHistoryProvider"
+            android:id="@+id/imgBookingProvider"
             android:layout_width="56dp"
             android:layout_height="56dp"
             android:scaleType="centerCrop"
-            android:src="@drawable/ic_profile"
+            android:src="@drawable/ic_customer"
+            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Circular"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
-            app:shapeAppearanceOverlay="@style/ShapeAppearance.App.Circular" />
+            app:layout_constraintBottom_toBottomOf="parent" />
 
         <!-- Service Name & Provider -->
         <TextView
@@ -37,8 +38,8 @@
             android:textSize="16sp"
             android:textStyle="bold"
             app:layout_constraintEnd_toStartOf="@id/layoutHistoryStatus"
-            app:layout_constraintStart_toEndOf="@id/imgHistoryProvider"
-            app:layout_constraintTop_toTopOf="@id/imgHistoryProvider" />
+            app:layout_constraintStart_toEndOf="@id/imgBookingProvider"
+        app:layout_constraintTop_toTopOf="@id/imgBookingProvider" />
 
         <TextView
             android:id="@+id/tvHistoryProviderName"
@@ -50,10 +51,10 @@
             android:textColor="#64748B"
             android:textSize="13sp"
             app:layout_constraintEnd_toStartOf="@id/layoutHistoryStatus"
-            app:layout_constraintStart_toEndOf="@id/imgHistoryProvider"
-            app:layout_constraintTop_toBottomOf="@id/tvHistoryServiceName" />
+            app:layout_constraintStart_toEndOf="@id/imgBookingProvider"
+        app:layout_constraintTop_toBottomOf="@id/tvHistoryServiceName" />
 
-        <!-- Status Tag (Top Right) -->
+
         <LinearLayout
             android:id="@+id/layoutHistoryStatus"
             android:layout_width="wrap_content"
@@ -83,7 +84,7 @@
             android:background="#F1F5F9"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/imgHistoryProvider" />
+            app:layout_constraintTop_toBottomOf="@id/imgBookingProvider" />
 
         <!-- Date & Price Row -->
         <ImageView

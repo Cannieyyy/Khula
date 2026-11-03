@@ -9,6 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.example.khula.Data.Models.BookingModels
 import java.text.SimpleDateFormat
 import java.util.Locale
+import android.widget.ImageView
+import com.bumptech.glide.Glide
 
 class BookingHistoryAdapter(
     private var bookings: List<BookingModels.BookingResponse>
@@ -23,6 +25,7 @@ class BookingHistoryAdapter(
         itemView: View
     ) : RecyclerView.ViewHolder(itemView) {
 
+        val imgProvider: ImageView = itemView.findViewById(R.id.imgBookingProvider)
         // Service title.
         val tvServiceName: TextView =
             itemView.findViewById(
@@ -98,6 +101,15 @@ class BookingHistoryAdapter(
         // Get current real booking.
         val booking =
             bookings[position]
+
+        if (!booking.providerAvatarUrl.isNullOrEmpty()) {
+            Glide.with(holder.itemView.context)
+                .load(booking.providerAvatarUrl)
+                .placeholder(R.drawable.ic_customer)
+                .into(holder.imgProvider)
+        } else {
+            holder.imgProvider.setImageResource(R.drawable.ic_customer)
+        }
 
 
         // =====================================================

@@ -39,7 +39,9 @@ object ServiceModels {
         val providerCity: String?,
         val providerProvince: String?,
         val regionPriority: Int?,
-        val providerAvatarUrl: String?
+        val providerAvatarUrl: String?,
+        val averageRating: Double?,
+        val totalReviews: Int?
     )
 
     data class UpdateProfileRequest(

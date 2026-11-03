@@ -116,8 +116,8 @@
 
         android:elevation="8dp"
 
-        app:itemIconTint="#4CAF50"
-        app:itemTextColor="#4CAF50"
+        app:itemIconTint="@color/bottom_nav_color_selector"
+        app:itemTextColor="@color/bottom_nav_color_selector"
 
         app:labelVisibilityMode="labeled"
 

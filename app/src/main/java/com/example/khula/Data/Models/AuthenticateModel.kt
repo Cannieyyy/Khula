@@ -47,4 +47,12 @@ class AuthenticateModel {
         val avatarUrl: String?
     )
 
+    data class ForgotPasswordRequest(val EmailAddress: String)
+
+    data class ResetPasswordRequest(
+        val tokenHash: String,
+        val newPassword: String
+    )
+
+    data class GoogleLoginRequest(val IdToken: String)
 }

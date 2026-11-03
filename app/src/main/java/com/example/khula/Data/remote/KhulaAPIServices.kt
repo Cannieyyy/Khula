@@ -3,6 +3,9 @@ import com.example.khula.Data.Models.AuthenticateModel.RegisterRequest
 import com.example.khula.Data.Models.AuthenticateModel.LoginRequest
 import com.example.khula.Data.Models.AuthenticateModel.AuthResponse
 import com.example.khula.Data.Models.AuthenticateModel.UserProfile
+import com.example.khula.Data.Models.AuthenticateModel.ForgotPasswordRequest
+import com.example.khula.Data.Models.AuthenticateModel.ResetPasswordRequest
+import com.example.khula.Data.Models.AuthenticateModel.GoogleLoginRequest
 import com.example.khula.Data.Models.ServiceModels
 import com.example.khula.Data.Models.ServiceModels.ServiceResponse
 import com.example.khula.Data.Models.ServiceModels.CreateServiceResult
@@ -53,6 +56,14 @@ interface KhulaAPIServices {
     @DELETE("api/Services/{id}")
     suspend fun deleteService(@Path("id") id: Int): Response<Unit>
 
+    @POST("api/Favorites/toggle/{providerId}")
+    suspend fun toggleFavorite(@Path("providerId") providerId: Int): Response<Unit>
+
+    @GET("api/Favorites/my")
+    suspend fun getMyFavorites(): Response<List<Int>>
+
+    @POST("api/Authentication/forgot-password")
+    suspend fun forgotPassword(@Body request: ForgotPasswordRequest): Response<Unit>
 
 
     @GET("api/Services/browse")
@@ -68,6 +79,10 @@ interface KhulaAPIServices {
 
 
 
+    @POST("api/Authentication/google-login")
+    suspend fun googleLogin(@Body request: GoogleLoginRequest): Response<AuthResponse>
+    @POST("api/Authentication/reset-password")
+    suspend fun resetPassword(@Body request: ResetPasswordRequest): Response<Unit>
     @POST("api/Bookings")
     suspend fun createBooking(@Body request: BookingModels.CreateBookingRequest): Response<BookingModels.CreateBookingResult>
 
