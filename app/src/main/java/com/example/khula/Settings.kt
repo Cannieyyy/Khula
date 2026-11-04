@@ -237,7 +237,8 @@ class Settings : AppCompatActivity() {
         val languages =
             arrayOf(
                 "English",
-                "isiZulu"
+                "isiZulu",
+                "Setswana" // ⬅️ ADDED
             )
 
 
@@ -247,10 +248,10 @@ class Settings : AppCompatActivity() {
 
 
         val checkedItem =
-            if (currentLanguage == "isiZulu") {
-                1
-            } else {
-                0
+            when (currentLanguage) {
+                "isiZulu" -> 1
+                "Setswana" -> 2 // ⬅️ ADDED
+                else -> 0
             }
 
 
@@ -291,6 +292,20 @@ class Settings : AppCompatActivity() {
 
                         changeApplicationLanguage(
                             "zu"
+                        )
+                    }
+
+
+                    // Setswana
+                    2 -> { // ⬅️ ADDED
+
+                        settingsPreferences
+                            .setLanguage(
+                                "Setswana"
+                            )
+
+                        changeApplicationLanguage(
+                            "tn"
                         )
                     }
                 }
@@ -417,104 +432,26 @@ class Settings : AppCompatActivity() {
     // =========================================================
 
     private fun showHelpDialog() {
-
         AlertDialog.Builder(this)
-
-            .setTitle(
-                "Help & Support"
-            )
-
-            .setMessage(
-                """
-                Need help using Khula?
-
-                Account:
-                View your registered information from Account Information.
-
-                Services:
-                Customers can browse available services and send service requests.
-
-                Bookings:
-                Customers can view their service requests under My Bookings.
-
-                Providers:
-                Providers can create services and view customer requests.
-
-                If you experience a technical problem, close and reopen the application and check your internet connection.
-                """.trimIndent()
-            )
-
-            .setPositiveButton(
-                "OK",
-                null
-            )
-
+            .setTitle(getString(R.string.help_title))
+            .setMessage(getString(R.string.help_content))
+            .setPositiveButton(getString(R.string.ok_btn), null)
             .show()
     }
-
-
-    // =========================================================
-    // PRIVACY POLICY
-    // =========================================================
 
     private fun showPrivacyPolicy() {
-
         AlertDialog.Builder(this)
-
-            .setTitle(
-                "Privacy Policy"
-            )
-
-            .setMessage(
-                """
-                Khula Privacy Notice
-
-                Khula uses account information you provide when registering, such as your name, email address, phone number and location information, to provide application functionality.
-
-                Customers can use Khula to browse services and submit service requests.
-
-                Service providers can use Khula to publish services and receive customer requests.
-
-                Your login session is stored on your device so that you can remain signed in.
-
-                You can end your current session at any time by selecting Log Out.
-
-                Location permission is only requested when location functionality is required by the application.
-
-                Khula should only request permissions necessary for its application features.
-                """.trimIndent()
-            )
-
-            .setPositiveButton(
-                "Close",
-                null
-            )
-
+            .setTitle(getString(R.string.privacy_title))
+            .setMessage(getString(R.string.privacy_content))
+            .setPositiveButton(getString(R.string.close_btn), null)
             .show()
     }
 
-
-    // =========================================================
-    // CHANGE PASSWORD
-    // =========================================================
-
     private fun showChangePasswordInformation() {
-
         AlertDialog.Builder(this)
-
-            .setTitle(
-                "Change Password"
-            )
-
-            .setMessage(
-                "Password changes are not currently supported by the Khula server."
-            )
-
-            .setPositiveButton(
-                "OK",
-                null
-            )
-
+            .setTitle(getString(R.string.change_password_title))
+            .setMessage(getString(R.string.change_password_content))
+            .setPositiveButton(getString(R.string.ok_btn), null)
             .show()
     }
 

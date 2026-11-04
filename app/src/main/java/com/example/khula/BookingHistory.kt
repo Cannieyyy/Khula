@@ -17,6 +17,7 @@ import com.example.khula.Data.Models.BookingModels
 import com.example.khula.Data.remote.RetrofitClient
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import kotlinx.coroutines.launch
+import com.example.khula.Data.SessionManager
 
 class BookingHistory : AppCompatActivity() {
 
@@ -169,27 +170,18 @@ class BookingHistory : AppCompatActivity() {
 
 
         lifecycleScope.launch {
-
             try {
+                val session = SessionManager(this@BookingHistory)
+                val accountType = session.getAccountType() // "Provider" or "Customer"
 
-                // =================================================
-                // CALL BACKEND
-                // =================================================
+                // Fetch based on role
+                val response = if (accountType == "Provider") {
+                    RetrofitClient.api.getMyBookingsAsProvider()
+                } else {
+                    RetrofitClient.api.getMyBookingsAsCustomer()
+                }
 
-                // GET api/Bookings/customer
-                val response =
-                    RetrofitClient.api
-                        .getMyBookingsAsCustomer()
-
-
-                // Hide loader when request finishes.
-                progressBookings.visibility =
-                    View.GONE
-
-
-                // =================================================
-                // SUCCESS
-                // =================================================
+                progressBookings.visibility = View.GONE
 
                 if (response.isSuccessful) {
 
@@ -287,6 +279,9 @@ class BookingHistory : AppCompatActivity() {
                 ).show()
             }
         }
+
+
+
     }
 
 
@@ -367,11 +362,7 @@ class BookingHistory : AppCompatActivity() {
 
                 R.id.nav_favorites -> {
 
-                    Toast.makeText(
-                        this,
-                        "Favourites — coming soon",
-                        Toast.LENGTH_SHORT
-                    ).show()
+                    startActivity(Intent(this, FavouritesActivity::class.java))
 
                     true
                 }

@@ -38,7 +38,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back"
                 android:src="@android:drawable/ic_menu_revert" />
 
 
@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Settings"
+                android:text="@string/settings"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -74,7 +74,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Account Information"
+                android:contentDescription="@string/account_information"
                 android:src="@android:drawable/ic_menu_myplaces" />
 
             <TextView
@@ -82,7 +82,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Account Information"
+                android:text="@string/account_information"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -114,7 +114,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Change Password"
+                android:contentDescription="@string/change_password"
                 android:src="@android:drawable/ic_lock_lock" />
 
 
@@ -123,7 +123,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Change Password"
+                android:text="@string/change_password"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -157,7 +157,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Language"
+                android:contentDescription="@string/language"
                 android:src="@android:drawable/ic_menu_mapmode" />
 
 
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Language"
+                android:text="@string/language"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -181,7 +181,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="4dp"
-                android:text="English"
+                android:text="@string/english"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -215,7 +215,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Notifications"
+                android:contentDescription="@string/notifications"
                 android:src="@android:drawable/ic_popup_reminder" />
 
 
@@ -224,7 +224,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Notifications"
+                android:text="@string/notifications"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -255,7 +255,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Dark Mode"
+                android:contentDescription="@string/dark_mode"
                 android:src="@android:drawable/ic_menu_day" />
 
 
@@ -264,7 +264,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Dark Mode"
+                android:text="@string/dark_mode"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -296,7 +296,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Help and Support"
+                android:contentDescription="@string/help_and_support"
                 android:src="@android:drawable/ic_menu_help" />
 
 
@@ -305,7 +305,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Help &amp; Support"
+                android:text="@string/help_amp_support"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -339,7 +339,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Privacy Policy"
+                android:contentDescription="@string/privacy_policy"
                 android:src="@android:drawable/ic_lock_idle_lock" />
 
 
@@ -348,7 +348,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_weight="1"
-                android:text="Privacy Policy"
+                android:text="@string/privacy_policy"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="15sp" />
 
@@ -395,7 +395,7 @@
             <ImageView
                 android:layout_width="24dp"
                 android:layout_height="24dp"
-                android:contentDescription="Log Out"
+                android:contentDescription="@string/log_out"
                 android:src="@android:drawable/ic_menu_close_clear_cancel" />
 
 
@@ -403,7 +403,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="Log Out"
+                android:text="@string/log_out"
                 android:textColor="#DC2626"
                 android:textSize="15sp"
                 android:textStyle="bold" />

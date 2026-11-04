@@ -20,7 +20,7 @@
             android:layout_width="40dp"
             android:layout_height="40dp"
             android:background="?attr/selectableItemBackgroundBorderless"
-            android:contentDescription="Back"
+            android:contentDescription="@string/back"
             android:src="@drawable/ic_arrow_back"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -31,7 +31,7 @@
             android:layout_width="72dp"
             android:layout_height="72dp"
             android:layout_marginTop="16dp"
-            android:contentDescription="Khula Logo"
+            android:contentDescription="@string/khula_logo"
             android:src="@drawable/logo"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -43,7 +43,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Create Account"
+            android:text="@string/create_account"
             android:textColor="#0F172A"
             android:textSize="24sp"
             android:textStyle="bold"
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="8dp"
             android:gravity="center"
-            android:text="Join the Khula community and start growing with us."
+            android:text="@string/join_the_khula_community_and_start_growing_with_us"
             android:textColor="#64748B"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -127,7 +127,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="32dp"
-            android:text="Choose Account Type"
+            android:text="@string/choose_account_type"
             android:textColor="#0F172A"
             android:textSize="18sp"
             android:textStyle="bold"
@@ -139,7 +139,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginTop="4dp"
-            android:text="Select how you intend to use Khula today."
+            android:text="@string/select_how_you_intend_to_use_khula_today"
             android:textColor="#64748B"
             android:textSize="14sp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -175,14 +175,14 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:contentDescription="Customer Role"
+                    android:contentDescription="@string/customer_role"
                     android:src="@drawable/ic_customer" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Customer"
+                    android:text="@string/customer"
                     android:textColor="#0F172A"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -205,14 +205,14 @@
                 <ImageView
                     android:layout_width="48dp"
                     android:layout_height="48dp"
-                    android:contentDescription="Provider Role"
+                    android:contentDescription="@string/provider_role"
                     android:src="@drawable/ic_provider" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="8dp"
-                    android:text="Provider"
+                    android:text="@string/provider"
                     android:textColor="#0F172A"
                     android:textSize="16sp"
                     android:textStyle="bold" />
@@ -226,7 +226,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="32dp"
             android:background="@drawable/bg_rounded_button"
-            android:text="Next"
+            android:text="@string/next"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"

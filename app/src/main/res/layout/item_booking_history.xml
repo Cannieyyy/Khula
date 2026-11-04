@@ -70,7 +70,7 @@
                 android:id="@+id/tvHistoryStatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="COMPLETED"
+                android:text="@string/completed"
                 android:textColor="#166534"
                 android:textSize="11sp"
                 android:textStyle="bold" />
@@ -102,7 +102,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="8dp"
-            android:text="14 Oct 2023 • 09:00 AM"
+            android:text="@string/_14_oct_2023_09_00_am"
             android:textColor="#0F172A"
             android:textSize="13sp"
             app:layout_constraintBottom_toBottomOf="@id/icHistoryCalendar"

@@ -26,22 +26,22 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginTop="8dp"
-            android:text="Tap image to upload new picture"
+            android:text="@string/tap_image_to_upload_new_picture"
             android:textSize="12sp" />
 
-        <EditText android:id="@+id/etFirstName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="First Name" android:layout_marginTop="16dp"/>
-        <EditText android:id="@+id/etLastName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Last Name" />
-        <EditText android:id="@+id/etPhone" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Phone Number" />
-        <EditText android:id="@+id/etProvince" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Province" />
-        <EditText android:id="@+id/etCity" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="City" />
-        <EditText android:id="@+id/etSuburb" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="Suburb" />
+        <EditText android:id="@+id/etFirstName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/first_name" android:layout_marginTop="16dp"/>
+        <EditText android:id="@+id/etLastName" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/last_name" />
+        <EditText android:id="@+id/etPhone" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/phone_number" />
+        <EditText android:id="@+id/etProvince" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/province" />
+        <EditText android:id="@+id/etCity" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/city" />
+        <EditText android:id="@+id/etSuburb" android:layout_width="match_parent" android:layout_height="wrap_content" android:hint="@string/suburb" />
 
         <Button
             android:id="@+id/btnSaveProfile"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Save Changes"
+            android:text="@string/save_changes"
             android:backgroundTint="#0B3D2E"
             android:textColor="#FFFFFF" />
     </LinearLayout>

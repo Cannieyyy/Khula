@@ -17,7 +17,7 @@
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="Service Title"
+            android:text="@string/service_title"
             android:textColor="#0F172A"
             android:textSize="16sp"
             android:textStyle="bold" />
@@ -37,7 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="6dp"
-        android:text="Description"
+        android:text="@string/description"
         android:textColor="#64748B"
         android:textSize="13sp" />
 
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="10dp"
             android:paddingVertical="4dp"
-            android:text="120 min"
+            android:text="@string/_120_min"
             android:textColor="#64748B"
             android:textSize="11sp" />
 
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:paddingHorizontal="8dp"
             android:paddingVertical="4dp"
-            android:text="Delete"
+            android:text="@string/delete"
             android:textColor="#DC2626"
             android:textSize="12sp"
             android:textStyle="bold" />

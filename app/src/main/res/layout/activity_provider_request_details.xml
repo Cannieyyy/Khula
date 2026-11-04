@@ -24,14 +24,14 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:src="@drawable/ic_arrow_back"
-            android:contentDescription="Back" />
+            android:contentDescription="@string/back" />
 
         <TextView
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:layout_marginStart="16dp"
-            android:text="Request Details"
+            android:text="@string/request_details"
             android:textColor="#0F172A"
             android:textSize="20sp"
             android:textStyle="bold" />
@@ -59,7 +59,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Customer"
+                android:text="@string/customer"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -68,7 +68,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Customer"
+                android:text="@string/customer"
                 android:textColor="#0F172A"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -78,7 +78,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Service"
+                android:text="@string/service"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -87,7 +87,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Service"
+                android:text="@string/service"
                 android:textColor="#0F172A"
                 android:textSize="18sp"
                 android:textStyle="bold" />
@@ -108,7 +108,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Preferred Date"
+                        android:text="@string/preferred_date"
                         android:textColor="#64748B"
                         android:textSize="13sp" />
 
@@ -117,7 +117,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Date"
+                        android:text="@string/date"
                         android:textColor="#0F172A"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -133,7 +133,7 @@
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Preferred Time"
+                        android:text="@string/preferred_time"
                         android:textColor="#64748B"
                         android:textSize="13sp" />
 
@@ -142,7 +142,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="4dp"
-                        android:text="Time"
+                        android:text="@string/time"
                         android:textColor="#0F172A"
                         android:textSize="15sp"
                         android:textStyle="bold" />
@@ -156,7 +156,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Customer Location"
+                android:text="@string/customer_location"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -165,7 +165,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="Location"
+                android:text="@string/location"
                 android:textColor="#0F172A"
                 android:textSize="15sp" />
 
@@ -174,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Customer Request"
+                android:text="@string/customer_request"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -185,7 +185,7 @@
                 android:layout_marginTop="8dp"
                 android:background="@drawable/bg_request_card"
                 android:padding="16dp"
-                android:text="Request description"
+                android:text="@string/request_description"
                 android:textColor="#0F172A"
                 android:textSize="15sp" />
 
@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
-                android:text="Status"
+                android:text="@string/status"
                 android:textColor="#64748B"
                 android:textSize="13sp" />
 
@@ -203,7 +203,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dp"
-                android:text="Pending"
+                android:text="@string/pending"
                 android:textColor="#D97706"
                 android:textSize="15sp"
                 android:textStyle="bold" />
@@ -230,7 +230,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:layout_marginEnd="8dp"
-            android:text="Decline"
+            android:text="@string/decline"
             android:textAllCaps="false" />
 
         <Button
@@ -239,7 +239,7 @@
             android:layout_height="55dp"
             android:layout_weight="1"
             android:layout_marginStart="8dp"
-            android:text="Accept"
+            android:text="@string/accept"
             android:textAllCaps="false" />
 
     </LinearLayout>

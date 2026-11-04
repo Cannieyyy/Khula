@@ -99,7 +99,7 @@ class ProviderDashboard : AppCompatActivity() {
                 }
 
                 R.id.nav_bookings -> {
-                    Toast.makeText(this, "Bookings — coming soon", Toast.LENGTH_SHORT).show()
+                    startActivity(android.content.Intent(this, BookingHistory::class.java))
                     true
                 }
 

@@ -28,7 +28,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back"
                 android:src="@android:drawable/ic_menu_revert"
                 app:tint="#0F172A" />
 
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Add Service"
+                android:text="@string/add_service"
                 android:textColor="#0F172A"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -46,7 +46,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="24dp"
-            android:text="Service Title"
+            android:text="@string/service_title"
             android:textColor="#334155"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -57,7 +57,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="6dp"
             android:background="#F1F5F9"
-            android:hint="e.g. Starter Locks"
+            android:hint="@string/e_g_starter_locks"
             android:paddingHorizontal="16dp"
             android:textColor="#0F172A"
             android:textSize="15sp" />
@@ -66,7 +66,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Description"
+            android:text="@string/description"
             android:textColor="#334155"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -78,7 +78,7 @@
             android:layout_marginTop="6dp"
             android:background="#F1F5F9"
             android:gravity="top|start"
-            android:hint="What does this service involve?"
+            android:hint="@string/what_does_this_service_involve"
             android:padding="16dp"
             android:textColor="#0F172A"
             android:textSize="15sp" />
@@ -87,7 +87,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="Category"
+            android:text="@string/category"
             android:textColor="#334155"
             android:textSize="13sp"
             android:textStyle="bold" />
@@ -98,7 +98,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="6dp"
             android:background="#F1F5F9"
-            android:hint="e.g. Hair, Tutoring, Repairs"
+            android:hint="@string/e_g_hair_tutoring_repairs"
             android:paddingHorizontal="16dp"
             android:textColor="#0F172A"
             android:textSize="15sp" />
@@ -119,7 +119,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Price (R)"
+                    android:text="@string/price_r"
                     android:textColor="#334155"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -130,7 +130,7 @@
                     android:layout_height="52dp"
                     android:layout_marginTop="6dp"
                     android:background="#F1F5F9"
-                    android:hint="250"
+                    android:hint="@string/_250"
                     android:inputType="numberDecimal"
                     android:paddingHorizontal="16dp"
                     android:textColor="#0F172A"
@@ -147,7 +147,7 @@
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Duration (min)"
+                    android:text="@string/duration_min"
                     android:textColor="#334155"
                     android:textSize="13sp"
                     android:textStyle="bold" />
@@ -172,7 +172,7 @@
             android:layout_height="52dp"
             android:layout_marginTop="32dp"
             android:background="#0B3D2E"
-            android:text="Save Service"
+            android:text="@string/save_service"
             android:textAllCaps="false"
             android:textColor="#FFFFFF"
             android:textSize="16sp"

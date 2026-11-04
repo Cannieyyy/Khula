@@ -213,6 +213,17 @@ class BookingHistoryAdapter(
 
 
         // =====================================================
+        // OPEN CHAT
+        // =====================================================
+
+        holder.itemView.setOnClickListener {
+            val intent = android.content.Intent(holder.itemView.context, ChatActivity::class.java)
+            intent.putExtra("bookingId", booking.bookingId)
+            intent.putExtra("providerName", booking.providerName)
+            intent.putExtra("providerAvatarUrl", booking.providerAvatarUrl)
+            holder.itemView.context.startActivity(intent)
+        }
+        // =====================================================
         // STATUS
         // =====================================================
 

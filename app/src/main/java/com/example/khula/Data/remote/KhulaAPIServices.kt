@@ -11,6 +11,7 @@ import com.example.khula.Data.Models.ServiceModels.ServiceResponse
 import com.example.khula.Data.Models.ServiceModels.CreateServiceResult
 import com.example.khula.Data.Models.ServiceModels.CreateServiceRequest
 import com.example.khula.Data.Models.BookingModels
+import com.example.khula.Data.Models.MessageModels
 import retrofit2.Response
 import okhttp3.MultipartBody
 import retrofit2.http.Multipart
@@ -102,4 +103,11 @@ interface KhulaAPIServices {
         @Path("id") id: Int,
         @Body request: BookingModels.UpdateBookingStatusRequest
     ): Response<BookingModels.UpdateBookingStatusResult>
+
+
+    @GET("api/Messages/{bookingId}")
+    suspend fun getMessages(@Path("bookingId") bookingId: Int): Response<List<MessageModels.MessageResponse>>
+
+    @POST("api/Messages")
+    suspend fun sendMessage(@Body request: MessageModels.SendMessageRequest): Response<Unit>
 }

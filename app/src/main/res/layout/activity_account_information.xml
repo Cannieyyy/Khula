@@ -29,7 +29,7 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:background="?attr/selectableItemBackgroundBorderless"
-                android:contentDescription="Back"
+                android:contentDescription="@string/back"
                 android:src="@android:drawable/ic_menu_revert"
                 app:tint="#0F172A" />
 
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
-                android:text="Account Information"
+                android:text="@string/account_information"
                 android:textColor="#0F172A"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -65,7 +65,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Loading..."
+                android:text="@string/loading"
                 android:textColor="#0F172A"
                 android:textSize="20sp"
                 android:textStyle="bold" />
@@ -75,7 +75,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dp"
-                android:text="—"
+                android:text="@string/dash"
                 android:textColor="#2E7D5C"
                 android:textSize="13sp"
                 android:textStyle="bold" />
@@ -85,7 +85,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="12dp"
-                android:text="Edit Profile"
+                android:text="@string/edit_profile"
                 android:textColor="#FFFFFF"
                 android:backgroundTint="#2E7D5C" />
         </LinearLayout>
@@ -102,7 +102,7 @@
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Email"
+                android:text="@string/email"
                 android:textColor="#64748B"
                 android:textSize="12sp" />
 
@@ -126,7 +126,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Phone Number"
+                android:text="@string/phone_number"
                 android:textColor="#64748B"
                 android:textSize="12sp" />
 
@@ -174,7 +174,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="City"
+                android:text="@string/city"
                 android:textColor="#64748B"
                 android:textSize="12sp" />
 
@@ -198,7 +198,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="Suburb"
+                android:text="@string/suburb"
                 android:textColor="#64748B"
                 android:textSize="12sp" />
 
