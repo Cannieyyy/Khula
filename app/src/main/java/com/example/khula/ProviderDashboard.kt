@@ -370,7 +370,7 @@ class ProviderDashboard : AppCompatActivity() {
             details.layoutParams = detailsParams
 
             val customerName = TextView(this)
-            customerName.text = booking.customerName ?: "Customer"
+            customerName.text = booking.providerName ?: "Customer"
             customerName.textSize = 14f
             customerName.setTextColor(android.graphics.Color.parseColor("#0F172A"))
             customerName.setTypeface(null, android.graphics.Typeface.BOLD)
@@ -381,7 +381,7 @@ class ProviderDashboard : AppCompatActivity() {
             serviceDate.setTextColor(android.graphics.Color.parseColor("#64748B"))
 
             val location = TextView(this)
-            location.text = booking.customerSuburb ?: "Location not set"
+            location.text = booking.providerSuburb ?: "Location not set"
             location.textSize = 12f
             location.setTextColor(android.graphics.Color.parseColor("#64748B"))
 

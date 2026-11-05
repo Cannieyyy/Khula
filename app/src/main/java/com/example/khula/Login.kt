@@ -80,6 +80,19 @@ class Login : AppCompatActivity() {
                                 session.saveSession(body.token, body.userId ?: 0, body.accountType ?: "Customer")
                             }
 
+                            // ⬇️ ADDED FCM TOKEN LOGIC FOR GOOGLE SIGN IN
+                            com.google.firebase.messaging.FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                                if (task.isSuccessful) {
+                                    val fcmToken = task.result
+                                    lifecycleScope.launch {
+                                        try {
+                                            RetrofitClient.api.saveFcmToken(AuthenticateModel.FcmTokenRequest(fcmToken))
+                                        } catch (e: Exception) { }
+                                    }
+                                }
+                            }
+                            // ⬆️ END FCM BLOCK
+
                             val intent = if (body?.accountType == "Provider") {
                                 Intent(this@Login, ProviderDashboard::class.java)
                             } else {
@@ -190,6 +203,21 @@ class Login : AppCompatActivity() {
                         if (token != null) {
                             session.saveSession(token, userId, accountType)
                         }
+
+                        // ADDED FCM TOKEN LOGIC HERE
+                        com.google.firebase.messaging.FirebaseMessaging.getInstance().token.addOnCompleteListener { task ->
+                            if (task.isSuccessful) {
+                                val fcmToken = task.result
+                                lifecycleScope.launch {
+                                    try {
+                                        RetrofitClient.api.saveFcmToken(AuthenticateModel.FcmTokenRequest(fcmToken))
+                                    } catch (e: Exception) {
+                                        // Ignore, not critical to login
+                                    }
+                                }
+                            }
+                        }
+
 
                         Toast.makeText(this@Login, "Welcome! You are a $accountType", Toast.LENGTH_LONG).show()
 

@@ -1,4 +1,5 @@
 package com.example.khula.Data.remote
+import com.example.khula.Data.Models.AuthenticateModel
 import com.example.khula.Data.Models.AuthenticateModel.RegisterRequest
 import com.example.khula.Data.Models.AuthenticateModel.LoginRequest
 import com.example.khula.Data.Models.AuthenticateModel.AuthResponse
@@ -110,4 +111,14 @@ interface KhulaAPIServices {
 
     @POST("api/Messages")
     suspend fun sendMessage(@Body request: MessageModels.SendMessageRequest): Response<Unit>
+
+    @POST("api/Users/fcm-token")
+    suspend fun saveFcmToken(@Body request: AuthenticateModel.FcmTokenRequest): Response<Unit>
+
+    @PUT("api/Bookings/{id}/status")
+    suspend fun updateBookingStatus(
+        @Path("id") bookingId: Int,
+        @Body request: BookingModels.UpdateStatusRequest
+    ): Response<Unit>
+
 }

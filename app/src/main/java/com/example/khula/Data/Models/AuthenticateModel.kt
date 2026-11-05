@@ -55,4 +55,8 @@ class AuthenticateModel {
     )
 
     data class GoogleLoginRequest(val IdToken: String)
+
+    data class FcmTokenRequest(
+        val Token: String
+    )
 }

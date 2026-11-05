@@ -45,5 +45,7 @@ object BookingModels {
         val status: String?
     )
 
-
+    data class UpdateStatusRequest(
+        val Status: String // Must be capital S to match C#
+    )
 }

@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.khula.Data.Models.ServiceModels.ServiceBrowseResponse
+import com.example.khula.Data.SessionManager
 import com.example.khula.Data.remote.RetrofitClient
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -750,6 +751,12 @@ class CustomerHome : AppCompatActivity() {
 
                 // HOME
                 R.id.nav_home -> {
+                    // Check if the user is a provider, if so, send them back to their dashboard
+                    val session = SessionManager(this)
+                    if (session.getAccountType() == "Provider") {
+                        startActivity(Intent(this, ProviderDashboard::class.java))
+                        finish()
+                    }
                     true
                 }
 
@@ -763,7 +770,7 @@ class CustomerHome : AppCompatActivity() {
 
                 // MESSAGES
                 R.id.nav_messages -> {
-                    Toast.makeText(this, "Messages — coming soon", Toast.LENGTH_SHORT).show()
+                    startActivity(Intent(this, BookingHistory::class.java))
                     true
                 }
 
